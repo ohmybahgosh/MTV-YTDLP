@@ -18,6 +18,16 @@
 ### Example Command With Script Saved as/Named "MTV-YTDLP":
 ### MTV-YTDLP https://www.mtv.com/episodes/viogcs/jersey-shore-family-vacation-welcome-to-the-poconos-season-4-ep-18 "Jersey Shore Family Vacation - S04E18.mp4" 
 
+###
+###Safety measures to isolate the script if accidentally ran in wrong folder/folder with existing mp4 files
+###
+##Create a tmp working directory##
+mkdir TMPWORKDIR
+
+##Enter tmp working directory##
+cd TMPWORKDIR
+
+
 #Download the media from MTV.com
 #Each multi-part MP4 for the episode will be named sequentially I.E. 00001.mp4 00002.mp4
 yt-dlp -f 'bv+ba/b'  --downloader-args aria2c:"-x 16" --convert-subtitles=srt --add-metadata --write-all-thumbnails --embed-thumbnail -N45 --embed-subs --autonumber-start 1 -o '%(autonumber)s.%(ext)s' $1
