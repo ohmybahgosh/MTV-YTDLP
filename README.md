@@ -1,5 +1,5 @@
 # MTV-YTDLP
-
+![MTV-YTDLP](https://i.imgur.com/jyjeE9a.png)
 ### **Description:**
 Auto Merge MTV.com Episode output from multiple MP4 files in to a SINGLE MP4. 
 
