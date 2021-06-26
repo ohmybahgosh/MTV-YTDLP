@@ -1,0 +1,39 @@
+#!/bin/bash
+##########################################################################
+##########################################################################
+##                                                                      ##
+##         _____ _   _____     _____     _   _____         _            ##
+##        |     | |_|     |_ _| __  |___| |_|   __|___ ___| |_          ##
+##        |  |  |   | | | | | | __ -| .'|   |  |  | . |_ -|   |         ##
+##        |_____|_|_|_|_|_|_  |_____|__,|_|_|_____|___|___|_|_|         ##
+##                        |___|                                         ##
+##                                                                      ##
+##########################################################################
+##                         github.com/ohmybahgosh                       ##
+##########################################################################
+
+## Variables will be passed via input, See Example Command
+## "$1" = URL
+## "$2" = OUTPUT Name I.E. S01E02.mp4
+### Example Command With Script Saved as/Named "MTV-YTDLP":
+### MTV-YTDLP https://www.mtv.com/episodes/viogcs/jersey-shore-family-vacation-welcome-to-the-poconos-season-4-ep-18 "Jersey Shore Family Vacation - S04E18.mp4" 
+
+#Download the media from MTV.com
+#Each multi-part MP4 for the episode will be named sequentially I.E. 00001.mp4 00002.mp4
+yt-dlp -f 'bv+ba/b'  --downloader-args aria2c:"-x 16" --convert-subtitles=srt --add-metadata --write-all-thumbnails --embed-thumbnail -N45 --embed-subs --autonumber-start 1 -o '%(autonumber)s.%(ext)s' $1
+
+#Create inputs.txt file with our multi-part output MP4 filepaths
+ls *.mp4 >> inputs.txt
+
+#Let's use SED to format the inputs.txt file for ffmpeg
+sed -i -e "s/^/file '/g" -e "s/$/'/g" inputs.txt
+
+#Merge multi-part output MP4 files in to a single MP4
+ffmpeg -f concat -i inputs.txt -c copy "$2"
+
+#Using the rm interactive flag, we issue a prompt to delete the inputs.txt file
+#Enter y to confirm deletion of inputs.txt or n to keep inputs.txt
+rm -i inputs.txt
+
+# Remove no longer needed multi-part MP4 files
+rm 00*.mp4
