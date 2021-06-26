@@ -12,7 +12,16 @@ This script is a band-aid for that.
 MTV-YTDLP is a Simple script that uses YT-DLP do download an episode from MTV.com, and then merge the resulting multiple output MP4 files using ffmpeg.
 
 
+### **MTV-YTDLP Required Dependencies:**
 
+**YT-DLP:**
+https://github.com/yt-dlp/yt-dlp#installation
+
+**ffmpeg:**
+https://ffmpeg.org/download.html  
+  
+  
+  
 ### **Installing & Using MTV-YTDLP:**
 
 **Step One: Clone The Repo**
